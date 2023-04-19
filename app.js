@@ -2,14 +2,20 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
+const data = {};
+
 app.use(express.json());
 app.get('/', (req, res) => {
-  res.json({ message: 'Hi' });
+  if (data.name) {
+    res.json({ message: `Hi, ${data.name}` });
+  } else {
+    res.json({ message: 'Hi' });
+  }
 });
 
 app.post('/', (req, res) => {
   const { name } = req.body;
-  console.log({ name });
+  data.name = name;
   res.sendStatus(200);
 });
 
